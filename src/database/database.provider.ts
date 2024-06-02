@@ -6,7 +6,8 @@ export const databaseProviders: Provider[] = [
     provide: 'DATABASE_CLIENT',
     useFactory: async (): Promise<MongoClient> => {
       // const { DB_CONNECTION } = validateEnv();
-      const DB_CONNECTION = "mongodb+srv://shalevbbhh55:zHGWWJ7aKkwxQN7v@cluster0.fjwzwls.mongodb.net/samiUsers";
+      const DB_CONNECTION =
+        'mongodb+srv://shalevbbhh55:CR1muiYLAP3lrzIV@cluster0.fjwzwls.mongodb.net/samiUsers';
 
       try {
         const client = await MongoClient.connect(DB_CONNECTION, {
