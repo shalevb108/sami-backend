@@ -6,7 +6,10 @@ async function bootstrap() {
 
   app.enableCors({
     credentials: true,
-    origin: 'http://localhost:5173',
+    origin: [
+      'http://localhost:5173',
+      'https://rosh-sami-azarzar.netlify.app'
+    ],
   });
 
   await app.listen(3000);
