@@ -24,8 +24,8 @@ export class EmailService {
       port: 587,
       secure: false, // true for 465, false for other ports
       auth: {
-        user: 'benhayunshalev@gmail.com', // your email address
-        pass: 'kxytrguuawtfzotr', // your email password
+        user: 'roshcontrol@gmail.com', // your email address
+        pass: 'tbxswoizyqmwzeeg', // your email password
       },
     });
 
@@ -56,8 +56,8 @@ export class EmailService {
 
     // Define email options
     const mailOptions = {
-      from: 'benhayunshalev@gmail.com', // sender address
-      to: 'benhayunshalev@gmail.com', // list of receivers
+      from: 'roshcontrol@gmail.com', // sender address
+      to: 'roshcontrol@gmail.com', // list of receivers
       subject: 'ד"וח חדש נשלח', // Subject line
       html: `<b>:כספת</b><br>
       <b>כספת תקנית:</b> ${safe ? 'כן' : 'לא'}<br>
