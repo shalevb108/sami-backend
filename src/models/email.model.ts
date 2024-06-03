@@ -1,6 +1,14 @@
 import { z } from "zod";
 
 export const EmailSchema = z.object({
+  date: z.string(),
+  company: z.string(),
+  address: z.string(),
+  manager: z.string(),
+  employee1: z.string(),
+  employee2: z.string(),
+  employee3: z.string(),
+  employee4: z.string(),
   attendanceNotes: z.string(),
   cash: z.boolean(),
   cashCancellation: z.boolean(),
@@ -22,6 +30,7 @@ export const EmailSchema = z.object({
   unloadedDocuments:z.boolean(),
   unusualAmounts:z.boolean(),
   warehouseStock:z.boolean(),
+  emailAddress: z.array(z.string()),
 });
 
 export type Email = z.infer<typeof EmailSchema>;
