@@ -60,14 +60,15 @@ export class EmailService {
       unusualAmounts,
       warehouseStock,
       address,
-      emailAddress
+      emailAddress,
+      cameras
     } = email;
 
     
     // Define email options
     const mailOptions = {
       from: 'roshcontrol@gmail.com', // sender address
-      to: 'roshcontrol@gmail.com, shalevbbhh55@gmail.com', // list of receivers
+      to: 'roshcontrol@gmail.com', // list of receivers
       subject: 'ד"וח חדש נשלח', // Subject line
       html: 
       `
@@ -86,6 +87,7 @@ export class EmailService {
       <b>דוח תואם לסכום במעטפה במזומן:</b> ${cash ? 'כן' : 'לא'}<br>
       <b>קלסר הפקדות מודיעין אזרחי תואם:</b> ${folder ? 'כן' : 'לא'}<br>
       <b>עד 6 מעטפות יומיות בכספת:</b> ${envelopesInDay ? 'כן' : 'לא'}<br>
+      <b>מצלמות:</b> ${cameras ? 'כן' : 'לא'}<br>
       <b>הערות כספת:</b> ${safeNotes ? safeNotes : "אין"}<br><br>
       <b>:קופה</b><br>
       <b>קרן קופה תקין:</b> ${register ? 'כן' : 'לא'}<br>
