@@ -60,15 +60,16 @@ export class EmailService {
       unusualAmounts,
       warehouseStock,
       address,
-      emailAddress,
-      cameras
+      cameras,
+      emailAddress
     } = email;
 
-    
+// Join the array elements into a single string separated by commas
+    // const emails = emailAddress.map((email)=>`${email},`)
     // Define email options
     const mailOptions = {
       from: 'roshcontrol@gmail.com', // sender address
-      to: 'roshcontrol@gmail.com', // list of receivers
+      to: `${emailAddress}`, // list of receivers
       subject: 'ד"וח חדש נשלח', // Subject line
       html: 
       `

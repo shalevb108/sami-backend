@@ -30,7 +30,7 @@ export const EmailSchema = z.object({
   unloadedDocuments:z.boolean(),
   unusualAmounts:z.boolean(),
   warehouseStock:z.boolean(),
-  emailAddress: z.array(z.string()),
+  emailAddress: z.string(),
   cameras:z.boolean(),
 });
 
