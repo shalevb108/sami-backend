@@ -32,6 +32,7 @@ export const EmailSchema = z.object({
   warehouseStock:z.boolean(),
   emailAddress: z.string(),
   cameras:z.boolean(),
+  managerOption: z.string(),
 });
 
 export type Email = z.infer<typeof EmailSchema>;
