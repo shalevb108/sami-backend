@@ -4,6 +4,7 @@ import { InjectMongoDB } from '../database/injectDatabase.decorator';
 import { CreateEmailDto } from './dto/create-email.dto';
 import { Email } from 'src/models/email.model';
 import * as nodemailer from 'nodemailer';
+import { getGrade } from './grade.util';
 
 @Injectable()
 export class EmailService {
@@ -104,6 +105,8 @@ export class EmailService {
       <b>הערות נוכחות עובדים:</b> ${attendanceNotes ? attendanceNotes : "אין"}<br><br>
       <b>:תשאול עובדים</b><br>
       <b>הערות תשאול עובדים:</b> ${employeeNotes ? employeeNotes : "אין"}<br>
+      <br><br>
+      <b>ציון:</b> ${getGrade(email)}
     `;
     } else {
       htmlContent = `
@@ -138,6 +141,8 @@ export class EmailService {
         <b>הערות מלאי:</b> ${stockNotes ? stockNotes : "אין"}<br><br>
         <b>:תשאול עובדים</b><br>
         <b>הערות תשאול עובדים:</b> ${employeeNotes ? employeeNotes : "אין"}<br>
+        <br><br>
+        <b>ציון:</b> ${getGrade(email)}
       `;
     }
 // Join the array elements into a single string separated by commas
