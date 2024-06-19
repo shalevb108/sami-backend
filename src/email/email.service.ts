@@ -154,7 +154,7 @@ export class EmailService {
     // Define email options
     const mailOptions = {
       from: 'roshcontrol@gmail.com', // sender address
-      to: 'roshcontrol@gmail.com', // list of receivers `${emailAddress}`
+      to: `${emailAddress}`, // list of receivers `${emailAddress}`
       subject: 'ד"וח חדש נשלח', // Subject line
       html: htmlContent,
     };
