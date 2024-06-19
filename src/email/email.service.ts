@@ -64,6 +64,7 @@ export class EmailService {
       cameras,
       emailAddress,
       managerOption,
+      time,
     } = email;
 
     const htmlContent = `
@@ -73,6 +74,7 @@ export class EmailService {
           managerOption === 'מנהל'
             ? `
           <b>תאריך:</b> ${date}<br>
+          <b>שעה:</b> ${time}<br>
           <b>רשת:</b> ${company}<br>
           <b>כתובת הסניף:</b> ${address}<br>
           <b>שם ה${managerOption}:</b> ${manager}<br>
@@ -112,6 +114,7 @@ export class EmailService {
         `
             : `
           <b>תאריך:</b> ${date}<br>
+          <b>שעה:</b> ${time}<br>
           <b>רשת:</b> ${company}<br>
           <b>כתובת הסניף:</b> ${address}<br>
           <b>שם ה${managerOption}:</b> ${manager}<br>
@@ -154,7 +157,7 @@ export class EmailService {
     // Define email options
     const mailOptions = {
       from: 'roshcontrol@gmail.com', // sender address
-      to: `${emailAddress}`, // list of receivers `${emailAddress}`
+      to: 'roshcontrol@gmail.com', // list of receivers `${emailAddress}`
       subject: 'ד"וח חדש נשלח', // Subject line
       html: htmlContent,
     };
