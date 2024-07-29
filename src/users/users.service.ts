@@ -20,9 +20,6 @@ export class UsersService {
   }
 
   async findOne(username:string, password:string) {
-    console.log('====================================');
-    console.log(username, password);
-    console.log('====================================');
     try {
       const user = await this.usersModel.findOne({ username: username });
       

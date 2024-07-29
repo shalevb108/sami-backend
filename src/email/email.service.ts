@@ -15,10 +15,6 @@ export class EmailService {
   }
 
   async create(email: CreateEmailDto) {
-    console.log('====================================');
-    console.log(email);
-    console.log('====================================');
-
     // Set up Nodemailer transporter
     const transporter = nodemailer.createTransport({
       host: 'smtp.gmail.com', // replace with your SMTP server
