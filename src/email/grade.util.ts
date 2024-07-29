@@ -5,7 +5,7 @@ const booleanFieldPointsToManager = {
     safe: 1,
     keys: 9,
     envelopes: 5,
-    cash: 9,
+    cash: 4,
     folder: 8,
     envelopesInDay: 7,
     cameras: 1,
@@ -15,17 +15,20 @@ const booleanFieldPointsToManager = {
     unusualAmounts: 5,
     clubMember: 5,
     smallRegister: 5,
-    unloadedDocuments: 12,
+    unloadedDocuments: 7,
     otherDocuments: 6,
-    warehouseStock: 12,
+    warehouseStock: 7,
     employeeAttendance: 0,
+    buzzerDetector :5,
+  buzzersInItems :5,
+  warehouseDoor :5,
 };
 
 const booleanFieldPointsToZacyan = {
     safe: 1,
     keys: 9,
     envelopes: 5,
-    cash: 9,
+    cash: 4,
     folder: 8,
     envelopesInDay: 7,
     cameras: 1,
@@ -35,10 +38,13 @@ const booleanFieldPointsToZacyan = {
     unusualAmounts: 5,
     clubMember: 5,
     smallRegister: 0,
-    unloadedDocuments: 12,
+    unloadedDocuments: 7,
     otherDocuments: 6,
-    warehouseStock: 12,
+    warehouseStock: 7,
     employeeAttendance: 0,
+    buzzerDetector :5,
+  buzzersInItems :5,
+  warehouseDoor :5,
   };
 
 export const getGrade = (email: Email) => {

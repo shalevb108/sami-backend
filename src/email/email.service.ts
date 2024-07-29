@@ -63,7 +63,11 @@ export class EmailService {
       address,
       cameras,
       emailAddress,
-      managerOption
+      managerOption,
+      buzzerDetector,
+      buzzersInItems,
+      securityNotes,
+      warehouseDoor
     } = email;
 
     let htmlContent = '';
@@ -78,6 +82,7 @@ export class EmailService {
       <b>עובד 2:</b> ${employee2 ? employee2 : 'לא קיים'}<br>
       <b>עובד 3:</b> ${employee3 ? employee3 : 'לא קיים'}<br>
       <b>עובד 4:</b> ${employee4 ? employee4 : 'לא קיים'}<br><br>
+      <b>הערות נוכחות עובדים:</b> ${attendanceNotes ? attendanceNotes : "אין"}<br><br>
       <b>:כספת</b><br>
       <b>כספת תקנית:</b> ${safe ? 'כן' : 'לא'}<br>
       <b>מפתחות כספת בידי מנהל/זכיין:</b> ${keys ? 'כן' : 'לא'}<br>
@@ -100,9 +105,13 @@ export class EmailService {
       <b>תעודות פתוחות אחרות עד 5 ימים:</b> ${otherDocuments ? 'כן' : 'לא'}<br>
       <b>ביקורת מלאי מדגמית מהמחסן:</b> ${warehouseStock ? 'כן' : 'לא'}<br>
       <b>הערות מלאי:</b> ${stockNotes ? stockNotes : "אין"}<br><br>
+      <b>:ביטחון</b><br>
+      <b>בדיקת גלאי זמזמים:</b> ${buzzerDetector ? 'כן' : 'לא'}<br>
+      <b>בדיקת זמזמים בפריטים:</b> ${buzzersInItems ? 'כן' : 'לא'}<br>
+      <b>דלת מחסן פנימית/חיצונית:</b> ${warehouseDoor ? 'כן' : 'לא'}<br>
+      <b>הערות ביטחון:</b> ${securityNotes ? securityNotes : "אין"}<br><br>
       <b>:נוכחות עובדים</b><br>
       <b>נוכחות עובדים בסניף:</b> ${employeeAttendance ? 'כן' : 'לא'}<br>
-      <b>הערות נוכחות עובדים:</b> ${attendanceNotes ? attendanceNotes : "אין"}<br><br>
       <b>:תשאול עובדים</b><br>
       <b>הערות תשאול עובדים:</b> ${employeeNotes ? employeeNotes : "אין"}<br>
       <br><br>
@@ -138,6 +147,11 @@ export class EmailService {
         <b>תעודות פתוחות "נפרק בחנות" עד 5 ימים:</b> ${unloadedDocuments ? 'כן' : 'לא'}<br>
         <b>תעודות פתוחות אחרות עד 5 ימים:</b> ${otherDocuments ? 'כן' : 'לא'}<br>
         <b>ביקורת מלאי מדגמית מהמחסן:</b> ${warehouseStock ? 'כן' : 'לא'}<br>
+        <b>:ביטחון</b><br>
+        <b>בדיקת גלאי זמזמים:</b> ${buzzerDetector ? 'כן' : 'לא'}<br>
+        <b>בדיקת זמזמים בפריטים:</b> ${buzzersInItems ? 'כן' : 'לא'}<br>
+        <b>דלת מחסן פנימית/חיצונית:</b> ${warehouseDoor ? 'כן' : 'לא'}<br>
+        <b>הערות ביטחון:</b> ${securityNotes ? securityNotes : "אין"}<br><br>  
         <b>הערות מלאי:</b> ${stockNotes ? stockNotes : "אין"}<br><br>
         <b>:תשאול עובדים</b><br>
         <b>הערות תשאול עובדים:</b> ${employeeNotes ? employeeNotes : "אין"}<br>
