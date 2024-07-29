@@ -67,7 +67,8 @@ export class EmailService {
       buzzerDetector,
       buzzersInItems,
       securityNotes,
-      warehouseDoor
+      warehouseDoor,
+      time,
     } = email;
 
     let htmlContent = '';
@@ -75,6 +76,7 @@ export class EmailService {
     if (managerOption === 'מנהל') {
       htmlContent = `
       <b>תאריך:</b> ${date}<br>
+      <b>שעה:</b> ${time}<br>
       <b>רשת:</b> ${company}<br>
       <b>כתובת הסניף:</b> ${address}<br>
       <b>שם ה${managerOption}:</b> ${manager}<br>
@@ -120,6 +122,7 @@ export class EmailService {
     } else {
       htmlContent = `
         <b>תאריך:</b> ${date}<br>
+        <b>שעה:</b> ${time}<br>
         <b>רשת:</b> ${company}<br>
         <b>כתובת הסניף:</b> ${address}<br>
         <b>שם ה${managerOption}:</b> ${manager}<br>
@@ -159,12 +162,13 @@ export class EmailService {
         <b>ציון:</b> ${getGrade(email)}
       `;
     }
-// Join the array elements into a single string separated by commas
+
+    // Join the array elements into a single string separated by commas
     // const emails = emailAddress.map((email)=>`${email},`)
     // Define email options
     const mailOptions = {
       from: 'roshcontrol@gmail.com', // sender address
-      to: 'roshcontrol@gmail.com', // list of receivers `${emailAddress}`
+      to: `${emailAddress}`, // list of receivers `${emailAddress}`
       subject: 'ד"וח חדש נשלח', // Subject line
       html: htmlContent,
     };

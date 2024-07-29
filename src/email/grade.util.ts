@@ -1,4 +1,4 @@
-import { Email } from "src/models/email.model";
+import { Email } from 'src/models/email.model';
 
 // Define the points for each boolean field
 const booleanFieldPointsToManager = {
@@ -50,19 +50,19 @@ const booleanFieldPointsToZacyan = {
 export const getGrade = (email: Email) => {
   let grade = 0;
 
-  if(email.managerOption==='מנהל'){
-  for (const key in booleanFieldPointsToManager) {
-    if (email[key] === true) {
-      grade += booleanFieldPointsToManager[key];
+  if (email.managerOption === 'מנהל') {
+    for (const key in booleanFieldPointsToManager) {
+      if (email[key] === true) {
+        grade += booleanFieldPointsToManager[key];
+      }
+    }
+  } else {
+    for (const key in booleanFieldPointsToZacyan) {
+      if (email[key] === true) {
+        grade += booleanFieldPointsToZacyan[key];
+      }
     }
   }
-}else{
-    for (const key in booleanFieldPointsToZacyan) {
-        if (email[key] === true) {
-          grade += booleanFieldPointsToZacyan[key];
-        }
-      }
-}
 
   return grade;
 };
