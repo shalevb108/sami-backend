@@ -41,3 +41,14 @@ export const EmailSchema = z.object({
 });
 
 export type Email = z.infer<typeof EmailSchema>;
+
+export const SavedEmailSchema = z.object({
+  date: z.string(),
+  company: z.string(),
+  address: z.string(),
+  htmlContent: z.string(),
+  emailAddress: z.string(),
+  time: z.string(),
+});
+
+export type SavedEmail = z.infer<typeof SavedEmailSchema>;
