@@ -5,6 +5,9 @@ import { CreateEmailDto } from './dto/create-email.dto';
 import { Email, SavedEmail } from 'src/models/email.model';
 import * as nodemailer from 'nodemailer';
 import { getGrade } from './grade.util';
+import * as docx from 'docx';
+import * as fs from 'fs';
+import { Response } from 'express';
 
 @Injectable()
 export class EmailService {
@@ -177,7 +180,7 @@ export class EmailService {
     await this.saveEmail(saveEmail);
     const mailOptions = {
       from: 'roshcontrol@gmail.com', // sender address
-      to: `${emailAddress}`, // list of receivers `${emailAddress}`
+      to: 'roshcontrol@gmail.com', // list of receivers `${emailAddress}`
       subject: 'ד"וח חדש נשלח', // Subject line
       html: htmlContent,
     };
@@ -236,4 +239,146 @@ export class EmailService {
       throw error; // Rethrow or handle error as needed
     }
   }
+
+ // Method to generate and send the Word file
+ async createWordFile(email: CreateEmailDto, res: Response) {
+  try {
+    // Generate the Word document
+    const doc = this.createWordDocument(email);
+
+    // Convert the document to a buffer
+    const Packer = require('docx').Packer;
+    const buffer = await Packer.toBuffer(doc);
+
+    // Set the response headers for file download
+    res.setHeader('Content-Disposition', 'attachment; filename="report.docx"');
+    res.setHeader('Content-Type', 'application/vnd.openxmlformats-officedocument.wordprocessingml.document');
+
+    // Send the buffer as the response
+    res.end(buffer);
+  } catch (error) {
+    console.error('Error generating Word file:', error);
+    res.status(500).send('Error generating Word file');
+  }
+}
+
+
+private createWordDocument(email: CreateEmailDto) {
+  const doc = new docx.Document({
+    sections: [
+      {
+        properties: {},
+        children: [
+          new docx.Paragraph({
+            children: [new docx.TextRun(`תאריך: ${email.date}`)],
+          }),
+          new docx.Paragraph({
+            children: [new docx.TextRun(`שעה: ${email.time}`)],
+          }),
+          new docx.Paragraph({
+            children: [new docx.TextRun(`רשת: ${email.company}`)],
+          }),
+          new docx.Paragraph({
+            children: [new docx.TextRun(`כתובת הסניף: ${email.address}`)],
+          }),
+          new docx.Paragraph({
+            children: [new docx.TextRun(`שם ה${email.managerOption}: ${email.manager}`)],
+          }),
+          new docx.Paragraph({
+            children: [new docx.TextRun(`עובד 1: ${email.employee1 ? email.employee1 : 'לא קיים'}`)],
+          }),
+          new docx.Paragraph({
+            children: [new docx.TextRun(`עובד 2: ${email.employee2 ? email.employee2 : 'לא קיים'}`)],
+          }),
+          new docx.Paragraph({
+            children: [new docx.TextRun(`עובד 3: ${email.employee3 ? email.employee3 : 'לא קיים'}`)],
+          }),
+          new docx.Paragraph({
+            children: [new docx.TextRun(`עובד 4: ${email.employee4 ? email.employee4 : 'לא קיים'}`)],
+          }),
+          new docx.Paragraph({
+            children: [new docx.TextRun(`הערות נוכחות עובדים: ${email.attendanceNotes ? email.attendanceNotes : 'אין'}`)],
+          }),
+          new docx.Paragraph({
+            children: [new docx.TextRun(`כספת תקנית: ${email.safe ? 'כן' : 'לא'}`)],
+          }),
+          new docx.Paragraph({
+            children: [new docx.TextRun(`מפתחות כספת בידי מנהל/זכיין: ${email.keys ? 'כן' : 'לא'}`)],
+          }),
+          new docx.Paragraph({
+            children: [new docx.TextRun(`רישום תקין על גבי מעטפות הפקדה: ${email.envelopes ? 'כן' : 'לא'}`)],
+          }),
+          new docx.Paragraph({
+            children: [new docx.TextRun(`דוח תואם לסכום במעטפה במזומן: ${email.cash ? 'כן' : 'לא'}`)],
+          }),
+          new docx.Paragraph({
+            children: [new docx.TextRun(`קלסר הפקדות מודיעין אזרחי תואם: ${email.folder ? 'כן' : 'לא'}`)],
+          }),
+          new docx.Paragraph({
+            children: [new docx.TextRun(`עד 6 מעטפות יומיות בכספת: ${email.envelopesInDay ? 'כן' : 'לא'}`)],
+          }),
+          new docx.Paragraph({
+            children: [new docx.TextRun(`מצלמות: ${email.cameras ? 'כן' : 'לא'}`)],
+          }),
+          new docx.Paragraph({
+            children: [new docx.TextRun(`הערות כספת: ${email.safeNotes ? email.safeNotes : 'אין'}`)],
+          }),
+          new docx.Paragraph({
+            children: [new docx.TextRun(`קרן קופה תקין: ${email.register ? 'כן' : 'לא'}`)],
+          }),
+          new docx.Paragraph({
+            children: [new docx.TextRun(`דוח תואם לפדיון בקופה: ${email.redemption ? 'כן' : 'לא'}`)],
+          }),
+          new docx.Paragraph({
+            children: [new docx.TextRun(`בדיקת ביטול מזומן בקופה: ${email.cashCancellation ? 'כן' : 'לא'}`)],
+          }),
+          new docx.Paragraph({
+            children: [new docx.TextRun(`בדיקת זיכויים בסכומים חריגים: ${email.unusualAmounts ? 'כן' : 'לא'}`)],
+          }),
+          new docx.Paragraph({
+            children: [new docx.TextRun(`בדיקת שימוש בכרטיס "חבר מועדון": ${email.clubMember ? 'כן' : 'לא'}`)],
+          }),
+          new docx.Paragraph({
+            children: [new docx.TextRun(`הערות קופה: ${email.registerNotes ? email.registerNotes : 'אין'}`)],
+          }),
+          new docx.Paragraph({
+            children: [new docx.TextRun(`תעודות פתוחות "נפרק בחנות" עד 5 ימים: ${email.unloadedDocuments ? 'כן' : 'לא'}`)],
+          }),
+          new docx.Paragraph({
+            children: [new docx.TextRun(`תעודות פתוחות אחרות עד 5 ימים: ${email.otherDocuments ? 'כן' : 'לא'}`)],
+          }),
+          new docx.Paragraph({
+            children: [new docx.TextRun(`ביקורת מלאי מדגמית מהמחסן: ${email.warehouseStock ? 'כן' : 'לא'}`)],
+          }),
+          new docx.Paragraph({
+            children: [new docx.TextRun(`הערות מלאי: ${email.stockNotes ? email.stockNotes : 'אין'}`)],
+          }),
+          new docx.Paragraph({
+            children: [new docx.TextRun(`בדיקת גלאי זמזמים: ${email.buzzerDetector ? 'כן' : 'לא'}`)],
+          }),
+          new docx.Paragraph({
+            children: [new docx.TextRun(`בדיקת זמזמים בפריטים: ${email.buzzersInItems ? 'כן' : 'לא'}`)],
+          }),
+          new docx.Paragraph({
+            children: [new docx.TextRun(`דלת מחסן פנימית/חיצונית: ${email.warehouseDoor ? 'כן' : 'לא'}`)],
+          }),
+          new docx.Paragraph({
+            children: [new docx.TextRun(`הערות ביטחון: ${email.securityNotes ? email.securityNotes : 'אין'}`)],
+          }),
+          new docx.Paragraph({
+            children: [new docx.TextRun(`נוכחות עובדים בסניף: ${email.employeeAttendance ? 'כן' : 'לא'}`)],
+          }),
+          new docx.Paragraph({
+            children: [new docx.TextRun(`הערות תשאול עובדים: ${email.employeeNotes ? email.employeeNotes : 'אין'}`)],
+          }),
+          new docx.Paragraph({
+            children: [new docx.TextRun(`ציון: ${getGrade(email)}`)],
+          }),
+        ],
+      },
+    ],
+  });
+
+  return doc;
+}
 }
